@@ -5,7 +5,7 @@ import Movie from "./Movie";
 import Search from "./Search";
 
 
-const MOVIE_API_URL = "https://www.omdbapi.com/?s=man&apikey=4a3b711b";
+const MOVIE_API_URL = "https://zipcloud.ibsnet.co.jp/api/search?zipcode";
 
 
 const App = () => {
@@ -42,7 +42,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header text="都道府県" />
+      <Header text="郵便検索" />
       <Search search={search} />
       <p className="App-intro">Sharing a few of our favourite movies</p>
       <div className="movies">
