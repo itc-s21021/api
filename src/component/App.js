@@ -4,8 +4,7 @@ import Header from "./Header";
 import Movie from "./Movie";
 import Search from "./Search";
 
-
-const MOVIE_API_URL = "https://zipcloud.ibsnet.co.jp/api/search?zipcode";
+const MOVIE_API_URL = "https://zipcloud.ibsnet.co.jp/api/search?zipcode=1000000";
 
 
 const App = () => {
@@ -17,34 +16,36 @@ const App = () => {
     fetch(MOVIE_API_URL)
       .then(response => response.json())
       .then(jsonResponse => {
-        setMovies(jsonResponse.Search);
+        setMovies(jsonResponse.results);
         setLoading(false);
       });
   }, []);
 
   const search = searchValue => {
     setLoading(true);
-    setErrorMessage(null);
+    setErrorMessage(null)
 
-    fetch(`https://www.omdbapi.com/?s=${searchValue}&apikey=4a3b711b`)
+    fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${searchValue}`)
       .then(response => response.json())
       .then(jsonResponse => {
-        if (jsonResponse.Response === "True") {
-          setMovies(jsonResponse.Search);
+        if (jsonResponse.message === null && jsonResponse.results === !null) {
+          setMovies(jsonResponse.results);
           setLoading(false);
+        } else if (jsonResponse.results === null) {
+          setErrorMessage("パラメータ「郵便番号」の桁数が不正です。")
+          setLoading(false)
         } else {
-          setErrorMessage(jsonResponse.Error);
+          setErrorMessage(jsonResponse.message);
           setLoading(false);
         }
-      });
-  };
+      })
+  }
 
 
   return (
     <div className="App">
       <Header text="郵便検索" />
       <Search search={search} />
-      <p className="App-intro">Sharing a few of our favourite movies</p>
       <div className="movies">
         {loading && !errorMessage ? (
           <span>loading...</span>
