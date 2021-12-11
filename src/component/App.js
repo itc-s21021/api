@@ -28,7 +28,7 @@ const App = () => {
     fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${searchValue}`)
       .then(response => response.json())
       .then(jsonResponse => {
-        if (jsonResponse.message === null && jsonResponse.results === !null) {
+        if (jsonResponse.message === null) {
           setMovies(jsonResponse.results);
           setLoading(false);
         } else if (jsonResponse.results === null) {
