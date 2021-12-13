@@ -1,4 +1,4 @@
 # WebApplication課題
 
 ## paizaのスクリーンショット
-![スクリーンショット](./p1.png)
+![スクリーンショット](./public/p1.png)
